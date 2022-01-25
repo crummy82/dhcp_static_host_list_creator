@@ -6,8 +6,10 @@ It is painstaking to add static dhcp hosts to firewalls/routers when you have lo
 2. pfSense/OPNSense config file to Edgerouter/VyOS config script converter - *pf2vy_dhcp_statics.py*
 
 #### pfSense Static Host List Creator ####
-This is a script to create a pfSense config from a CSV file list in the following format on each line of the CSV file-
+This is a script to create a pfSense config from a CSV file list in the following format on each line of the CSV file -
+```
 mac,IP,hostname,description
+```
 This will import the file 'host-list.csv' from the current directory and output the file 'static-dhcp-maps.xml' that can be imported into pfSense using the GUI Backup & Restore page.
 
 #### pfSense/OPNSense to Edgerouter/VyOS dhcp static host converter ####
