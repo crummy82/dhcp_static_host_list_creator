@@ -6,7 +6,7 @@ import csv
 # you will need to change/add those values below between each <> and </> tag.
 # pfSense will not allow you to leave tags out of configs when importing so DO NOT
 # delete unused configuration lines or you will get errors. 
-# The interface name can be found in pfSense in Status->Interfaces in parenthesis. The
+# The interface name can be found in pfSense in Status->Interfaces in parentheses. The
 # default is "lan" if you only have one internal LAN interface.
 
 DHCP_RANGE_START = "192.168.1.10"
