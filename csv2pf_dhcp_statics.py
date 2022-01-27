@@ -7,29 +7,32 @@ import csv
 # pfSense will not allow you to leave tags out of configs when importing so DO NOT
 # delete unused configuration lines or you will get errors. 
 # The interface name can be found in pfSense in Status->Interfaces in parentheses. The
-# default is "lan" if you only have one internal LAN interface.
+# default is 'lan' if you only have one internal LAN interface.
 
-DHCP_RANGE_START = "192.168.1.10"
-DHCP_RANGE_END = "192.168.1.250"
-DNS_SERVER = "192.168.1.1"
-INTERFACE_NAME = "lan"
-LEASE_IN_LOCAL_TIME = "true"
-DOMAIN = "lan.home"
-UPDATE_DNS = "allow"
+DHCP_RANGE_START = '192.168.1.10'
+DHCP_RANGE_END = '192.168.1.250'
+DNS_SERVER = '192.168.1.1'
+INTERFACE_NAME = 'lan'
+LEASE_IN_LOCAL_TIME = 'true'
+DOMAIN = 'lan.home'
+UPDATE_DNS = 'allow'
+HOST_LIST = 'host-list.csv'
+OUT_FILE = 'static-dhcp-maps.xml'
 
 
 rows = [] # saves rows of data for each host
 
 # Loops through CSV file and pulls each host's details. Hosts should be one per line in the file.
-with open('host-list.csv') as hosts:
+with open(HOST_LIST) as hosts:
     for host in hosts:
         rows.append(host)
 
-# Creates a new file 'static-dhcp-maps.xml' to export the config. It then uses the formatted 
-# strings to loop through the rows list and populate the fields and write them to the file.
-with open('static-dhcp-maps.xml', 'w') as statics:
-    # First output the global dhcp configuration data to the file
-    statics.write(f'''
+try:
+    # Creates a new file 'static-dhcp-maps.xml' to export the config. It then uses the formatted 
+    # strings to loop through the rows list and populate the fields and write them to the file.
+    with open(OUT_FILE, 'w') as statics:
+        # First output the global dhcp configuration data to the file
+        statics.write(f'''
 <dhcpd>
 	<{INTERFACE_NAME}>
 		<enable></enable>
@@ -65,10 +68,10 @@ with open('static-dhcp-maps.xml', 'w') as statics:
 		<rootpath></rootpath>
 		<numberoptions></numberoptions>''')
 
-    # Now loop through the list of static hosts to add those to the file
-    for row in rows:
-        host_details = row.split(',')
-        statics.write(f'''
+        # Now loop through the list of static hosts to add those to the file
+        for row in rows:
+            host_details = row.split(',')
+            statics.write(f'''
 		<staticmap>
 			<mac>{host_details[0]}</mac>
 			<cid>{host_details[2]}</cid>
@@ -98,9 +101,13 @@ with open('static-dhcp-maps.xml', 'w') as statics:
 			<numberoptions></numberoptions>
 		</staticmap>''')
 
-    # Finally ouput the global settings at the end of the config file and close
-    statics.write(f'''		
+        # Finally ouput the global settings at the end of the config file and close
+        statics.write(f'''		
 		<dnsserver>{DNS_SERVER}</dnsserver>
 		<dnsserver></dnsserver>
 	</{INTERFACE_NAME}>
 </dhcpd>''')
+    print("Successfully created the config file!")
+
+except:
+    print("Creating the config file failed!")
