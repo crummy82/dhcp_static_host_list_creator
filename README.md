@@ -10,7 +10,7 @@ This is a script to create a pfSense config from a CSV file list in the followin
 ```
 mac,IP,hostname,description
 ```
-This will import the file 'host-list.csv' from the current directory and output the file 'static-dhcp-maps.xml' that can be imported into pfSense using the GUI Backup & Restore page.
+This will import the file 'host-list.csv' from the current directory and output the file 'static-dhcp-maps.xml' that can be imported into pfSense using the GUI Backup & Restore page. There is an example host-list.csv file in the repo.
 
 #### pfSense/OPNSense to Edgerouter/VyOS dhcp static host converter ####
 This script takes a config backup file from pfSense or OPNSense and converts it to a configuration script that can be copied and pasted into an Edgerouter or VyOS command line configuration prompt. The config backup file from pfSense or OPNSense can be a full config backup or just a config backup of the DHCP Server. 
