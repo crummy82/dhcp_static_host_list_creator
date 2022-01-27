@@ -1,4 +1,4 @@
-## DHCP Static Host List Creator ##
+## DHCP Static Host List Creator/Converter ##
 Scripts to create and convert DHCP static host assignments for **pfSense, OPNsense, Edgerouter,** and **VyOS** devices.
 
 It is painstaking to add static dhcp hosts to firewalls/routers when you have lots of MAC addresses, IPs, and Hostnames to work with. These scripts can help. Currently there are two -
